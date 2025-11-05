@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/A2A/">
+    <Project Path="AspireA2AAgents.Tourisms/AspireA2AAgents.Tourisms.csproj" />
+    <Project Path="AspireA2AAgents.Weathers/AspireA2AAgents.Weathers.csproj" />
+    <Project Path="AspireA2AAgents/AspireA2AAgents.AppHost/AspireA2AAgents.AppHost.csproj" Id="052e1979-2d85-4ba3-a402-73b20a4802af" />
+    <Project Path="AspireA2AAgents/AspireA2AAgents.ServiceDefaults/AspireA2AAgents.ServiceDefaults.csproj" />
+    <Project Path="AspireA2AAgents/AspireA2AAgents.Web/AspireA2AAgents.Web.csproj" />
+  </Folder>
+  <Project Path="SimpleAgent/SimpleAgent.csproj" />
+</Solution>

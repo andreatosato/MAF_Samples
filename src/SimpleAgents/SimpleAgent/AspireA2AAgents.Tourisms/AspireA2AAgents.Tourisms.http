@@ -1,0 +1,6 @@
+@AspireA2AAgents.Tourisms_HostAddress = http://localhost:5161
+
+GET {{AspireA2AAgents.Tourisms_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

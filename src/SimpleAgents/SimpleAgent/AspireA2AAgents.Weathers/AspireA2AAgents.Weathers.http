@@ -1,0 +1,6 @@
+@AspireA2AAgents.Weathers_HostAddress = http://localhost:5142
+
+GET {{AspireA2AAgents.Weathers_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
