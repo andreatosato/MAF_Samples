@@ -1,3 +1,4 @@
+using A2A.AspNetCore;
 using Azure.AI.OpenAI;
 using Azure.Identity;
 using Microsoft.Agents.AI;
@@ -17,6 +18,7 @@ AIAgent tourism = new AzureOpenAIClient(
     Fornisci una lista di monumenti e una brevissima spiegazione di essi per invogliare i turisti a visitarli.",
     name: "TourismAgent");
 
-app.MapA2A(tourism, path: "/");
+app.MapA2A(tourism, path: "/",
+    taskManager => app.MapWellKnownAgentCard(taskManager, "/"));
 
 await app.RunAsync();

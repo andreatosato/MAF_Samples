@@ -1,3 +1,4 @@
+using A2A.AspNetCore;
 using Azure.AI.OpenAI;
 using Azure.Identity;
 using Microsoft.Agents.AI;
@@ -17,6 +18,8 @@ AIAgent weatherAgent = new AzureOpenAIClient(
     Fornisci le previsioni meteo delle prossime ore",
     name: "WeatherAgent");
 
-app.MapA2A(weatherAgent, path: "/");
+app.MapA2A(weatherAgent, 
+    path: "/", 
+    taskManager => app.MapWellKnownAgentCard(taskManager, "/"));
 
 await app.RunAsync();
