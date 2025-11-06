@@ -1,8 +1,16 @@
-var builder = DistributedApplication.CreateBuilder(args);
+﻿var builder = DistributedApplication.CreateBuilder(args);
 
-var weatherService = builder.AddProject<Projects.AspireA2AAgents_Weathers>("aspirea2aagents-weathers");
+var weatherService = builder.AddProject<Projects.AspireA2AAgents_Weathers>("aspirea2aagents-weathers")
+    .WithUrls((e) =>
+    {
+        e.Urls.Add(new() { Url = "/agenta2a/v1/card", DisplayText = "Weather Agent", Endpoint = e.GetEndpoint("https") });
+    });
 
-var tourismService = builder.AddProject<Projects.AspireA2AAgents_Tourisms>("aspirea2aagents-tourisms");
+var tourismService = builder.AddProject<Projects.AspireA2AAgents_Tourisms>("aspirea2aagents-tourisms")
+    .WithUrls((e) =>
+    {
+        e.Urls.Add(new() { Url = "/agenta2a/v1/card", DisplayText = "Tourism Agent", Endpoint = e.GetEndpoint("https") });
+    });
 
 builder.AddProject<Projects.AspireA2AAgents_Web>("webfrontend")
     .WithExternalHttpEndpoints()

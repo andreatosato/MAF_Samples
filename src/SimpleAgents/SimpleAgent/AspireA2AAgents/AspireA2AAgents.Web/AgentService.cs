@@ -23,7 +23,10 @@ public class AgentService
             var tourismAgent = serviceProvider.GetRequiredKeyedService<Task<AIAgent>>("TourismAgent");
 
             // Connect to the remote agents via A2A
-            var agents = await Task.WhenAll([weatherAgent, tourismAgent]);
+            var weatherResponse = await weatherAgent;
+            var tourismResponse = await tourismAgent;
+            //var agents = await Task.WhenAll([weatherAgent, tourismAgent]);
+            var agents = new AIAgent[] { weatherResponse!, tourismResponse! };
             var tools = agents.Select(agent => (AITool)agent.AsAIFunction()).ToList();
 
             // Create the agent that uses the remote agents as tools

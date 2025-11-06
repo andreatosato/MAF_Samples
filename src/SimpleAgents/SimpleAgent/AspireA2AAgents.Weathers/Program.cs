@@ -1,3 +1,4 @@
+using A2A;
 using A2A.AspNetCore;
 using Azure.AI.OpenAI;
 using Azure.Identity;
@@ -19,7 +20,29 @@ AIAgent weatherAgent = new AzureOpenAIClient(
     name: "WeatherAgent");
 
 app.MapA2A(weatherAgent, 
-    path: "/", 
-    taskManager => app.MapWellKnownAgentCard(taskManager, "/"));
+    path: "/agenta2a", 
+    new AgentCard 
+    {
+        Name = "Weather Agent",
+        Url = "http://localhost:5142/agenta2a",
+        Description = "An agent that provides weather forecasts.",
+        Version = "1.0.0",
+        DefaultInputModes = ["text"],
+        DefaultOutputModes = ["text"],
+        Capabilities = new AgentCapabilities
+        {
+            Streaming = false,
+            PushNotifications = false
+        },
+        Skills =
+        {
+            new AgentSkill
+            {
+                Name = "Get Weather Forecast",
+                Description = "Provides weather forecasts for the next hours.",
+                Examples = ["What's the weather like today?", "Will it rain tomorrow?" ]
+            }
+        }
+    });
 
 await app.RunAsync();

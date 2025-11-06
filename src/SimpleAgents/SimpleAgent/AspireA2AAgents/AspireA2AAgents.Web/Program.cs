@@ -12,21 +12,25 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddScoped<AgentService>();
-builder.Services.AddHttpClient("weather", client => client.BaseAddress = new("https://aspirea2aagents-weathers"));
-builder.Services.AddHttpClient("tourism", client => client.BaseAddress = new("https://aspirea2aagents-tourisms"));
 builder.Services.AddKeyedScoped<Task<AIAgent>>("WeatherAgent", (serviceProvider, o) =>
 {
-    var httpClientFactory = serviceProvider.GetService<IHttpClientFactory>();
-    var httpWeather = httpClientFactory!.CreateClient("weather");
-    var agentCardResolver = new A2ACardResolver(httpWeather!.BaseAddress!);
+    var httpClient = new HttpClient()
+    {
+        BaseAddress = new Uri(Environment.GetEnvironmentVariable("services__aspirea2aagents-weathers__https__0") ?? Environment.GetEnvironmentVariable("services__aspirea2aagents-weathers__http__0") ?? "http://localhost:5142"),
+        Timeout = TimeSpan.FromSeconds(60)
+    };
+    var agentCardResolver = new A2ACardResolver(httpClient!.BaseAddress!, httpClient, agentCardPath: "/agenta2a/v1/card");
     return agentCardResolver.GetAIAgentAsync();
 });
 
 builder.Services.AddKeyedScoped<Task<AIAgent>>("TourismAgent", (serviceProvider, o) =>
 {
-    var httpClientFactory = serviceProvider.GetService<IHttpClientFactory>();
-    var httpTourism = httpClientFactory!.CreateClient("tourism");
-    var agentCardResolver = new A2ACardResolver(httpTourism!.BaseAddress!);
+    var httpClient = new HttpClient()
+    {
+        BaseAddress = new Uri(Environment.GetEnvironmentVariable("services__aspirea2aagents-tourisms__https__0") ?? Environment.GetEnvironmentVariable("services__aspirea2aagents-tourisms__http__0") ?? "http://localhost:5161"),
+        Timeout = TimeSpan.FromSeconds(60)
+    };
+    var agentCardResolver = new A2ACardResolver(httpClient!.BaseAddress!, httpClient, agentCardPath: "/agenta2a/v1/card");
     return agentCardResolver.GetAIAgentAsync();
 });
 
