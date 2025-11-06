@@ -14,7 +14,8 @@ AIAgent weatherAgent = new AzureOpenAIClient(
     .GetChatClient("gpt-4.1-mini")
     .CreateAIAgent(instructions:
     @"Sei un metereologo!
-    Fornisci le previsioni meteo delle prossime ore");
+    Fornisci le previsioni meteo delle prossime ore",
+    name: "WeatherAgent");
 
 app.MapA2A(weatherAgent, path: "/");
 

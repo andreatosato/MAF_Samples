@@ -8,6 +8,8 @@ builder.AddProject<Projects.AspireA2AAgents_Web>("webfrontend")
     .WithExternalHttpEndpoints()
     .WithHttpHealthCheck("/health")
     .WithReference(weatherService)
+    .WithReference(tourismService)
+    .WaitFor(weatherService)
     .WaitFor(tourismService);
 
 builder.Build().Run();

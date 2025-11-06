@@ -12,9 +12,10 @@ AIAgent tourism = new AzureOpenAIClient(
   new Uri("https://legalserviceai.openai.azure.com/"),
   new AzureCliCredential())
     .GetChatClient("gpt-4.1-mini")
-    .CreateAIAgent(instructions: 
+    .CreateAIAgent(instructions:
     @"Sei una guida turistica!
-    Fornisci una lista di monumenti e una brevissima spiegazione di essi per invogliare i turisti a visitarli.");
+    Fornisci una lista di monumenti e una brevissima spiegazione di essi per invogliare i turisti a visitarli.",
+    name: "TourismAgent");
 
 app.MapA2A(tourism, path: "/");
 
